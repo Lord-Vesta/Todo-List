@@ -15,7 +15,6 @@ const countValue = document.querySelector(".count-value");
 let taskCount = 0;
 
 const displayCount = (taskCount) => {
-
   countValue.innerHTML = taskCount;
 };
 
@@ -46,8 +45,17 @@ const addTask = () => {
   taskContainer.insertAdjacentHTML("beforeend", task);
 
   taskCount++;
-  displayCount(taskCount)
-  
+  displayCount(taskCount);
+
+  const deleteButtons = document.querySelectorAll(".delete");
+
+  deleteButtons.forEach((button) => {
+    button.onclick = () => {
+      button.parentNode.remove();
+      taskCount--;
+      displayCount(taskCount)
+    };
+  });
 };
 
 addBtn.addEventListener("click", addTask);
