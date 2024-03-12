@@ -2,26 +2,19 @@ const addBtn = document.querySelector("#add-btn");
 const newTaskInput = document.querySelector("#wrapper input");
 const taskContainer = document.querySelector("#tasks");
 const error = document.getElementById("error");
-const countValue = document.querySelector(".count-value");
-
-// addBtn.addEventListener("click", function () {
-//   console.log(displayCount);
-// });
-
-// console.log(countValue.textContent);
-
-// console.log(newTaskInput);
+const countValue = document.querySelector("#countTasks");
 
 let taskCount = 0;
 
+// function to display the number of tasks
 const displayCount = (taskCount) => {
   countValue.innerHTML = taskCount;
 };
 
+
+// function which runs after addidng elements
 const addTask = () => {
-  console.log("into addtask");
   const taskName = newTaskInput.value.trim();
-  console.log(taskName);
   error.style.display = "none";
 
   if (!taskName) {
@@ -47,15 +40,78 @@ const addTask = () => {
   taskCount++;
   displayCount(taskCount);
 
+
+//   to delete a task
   const deleteButtons = document.querySelectorAll(".delete");
 
   deleteButtons.forEach((button) => {
     button.onclick = () => {
       button.parentNode.remove();
       taskCount--;
-      displayCount(taskCount)
+      displayCount(taskCount);
     };
   });
+
+
+// to edit a task
+  let editButton = document.querySelectorAll(".edit");
+
+  editButton.forEach((button) => {
+    button.onclick = (e) => {
+      let targetElement = e.target;
+
+      if (!(e.target.className == "edit")) {
+        targetElement = e.target.parentElement;
+      }
+
+      newTaskInput.value = targetElement.previousElementSibling?.innerText;
+      targetElement.parentNode.remove();
+      taskCount--;
+      displayCount(taskCount);
+    };
+  });
+
+
+//  to check if task is completed
+  const taskCheck = document.querySelectorAll(".task-check");
+
+  taskCheck.forEach((checkbox) => {
+    checkbox.onclick = () => {
+      checkbox.nextElementSibling.classList.toggle("completed");
+      if (checkbox.checked) {
+        taskCount--;
+      } else {
+        taskCount++;
+      }
+
+      displayCount(taskCount);
+    };
+  });
+
+  newTaskInput.value = "";
+  saveData();
+
+  //   console.log(countValue.textContent);
 };
 
 addBtn.addEventListener("click", addTask);
+
+// let y = document.querySelectorAll(".yashh");
+// y.forEach((button) => {
+//   button.onclick = (e) => {
+//     console.log(e.target.id);
+//   };
+// });
+
+function saveData() {
+  localStorage.setItem("data", tasks.innerHTML);
+  localStorage.setItem("count", countTasks.textContent);
+}
+
+function showData() {
+  tasks.innerHTML = localStorage.getItem("data");
+  countTasks.textContent = localStorage.getItem("count");
+}
+
+taskCount = localStorage.getItem("count");
+showData();

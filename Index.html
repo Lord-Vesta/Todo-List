@@ -18,16 +18,23 @@
       <div class="container">
         <div id="wrapper">
           <input type="text" placeholder="Tasks to be done..." />
-          <button id="add-btn" >Add</button>
+          <button id="add-btn">Add</button>
         </div>
-        <div id="tasks">
-          <p id="pending-tasks">
-            You have <span class="count-value">0</span> task(s) pending
-          </p>
-        </div>
+
+        <p id="pending-tasks">
+          You have
+          <span class="count-value" id="countTasks">0</span> task(s)
+          pending
+        </p>
+        <div id="tasks"></div>
       </div>
       <p id="error">Input cannot be empty!</p>
     </div>
+
+    <!-- <button  id="0" class="yashh">Hello</button>
+    <button id="1" class="yashh">Hello</button>
+    <button  id="2" class="yashh">Hello</button>
+    <button  id="3" class="yashh">Hello</button> -->
 
     <script src="script.js"></script>
   </body>
